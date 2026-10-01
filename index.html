@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>은이성지 순례 신청서</title>
+<style>
+/* layout concept: a pilgrim's travel document — a stamped header, a boarding-pass
+   info ticket with a torn perforation, then a paper form with underline fields */
+:root{
+  --bg:#ECE3D0;
+  --surface:#FBF8F1;
+  --fg:#2A2420;
+  --muted:#776B5A;
+  --line:#D9CBAE;
+  --accent:#7B2E2E;
+  --accent-ink:#ffffff;
+  --gold:#9C7A32;
+  --danger:#A23B2E;
+  --font-display:"Noto Serif KR", "Nanum Myeongjo", serif;
+  --font-body:"Noto Sans KR", "Malgun Gothic", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#191613;
+    --surface:#231F1B;
+    --fg:#EDE4D3;
+    --muted:#AFA28A;
+    --line:#3B352B;
+    --accent:#D98A79;
+    --accent-ink:#241210;
+    --gold:#D7B36A;
+    --danger:#E08A79;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#191613;
+  --surface:#231F1B;
+  --fg:#EDE4D3;
+  --muted:#AFA28A;
+  --line:#3B352B;
+  --accent:#D98A79;
+  --accent-ink:#241210;
+  --gold:#D7B36A;
+  --danger:#E08A79;
+  color-scheme: dark;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--font-body);
+  line-height:1.6;
+}
+.page{
+  max-width:560px;
+  margin:0 auto;
+  padding-inline:20px;
+  padding-block:28px 48px;
+}
+.hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:10px;
+  margin-bottom:28px;
+}
+.seal{
+  width:84px; height:84px;
+  border-radius:50%;
+  border:2px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:0.82rem;
+  letter-spacing:0.04em;
+  color:var(--gold);
+  position:relative;
+}
+.seal::before{
+  content:"";
+  position:absolute; inset:6px;
+  border:1px solid var(--gold);
+  border-radius:50%;
+  opacity:0.55;
+}
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(1.5rem, 1.1rem + 1.6vw, 2rem);
+  margin:4px 0 0;
+  text-wrap:balance;
+}
+.hero .subtitle{
+  margin:0;
+  color:var(--muted);
+  font-size:0.95rem;
+  letter-spacing:0.02em;
+}
+.ticket{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px 22px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.ticket-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.ticket-row .label{
+  font-size:0.78rem;
+  color:var(--muted);
+  letter-spacing:0.08em;
+  white-space:nowrap;
+}
+.ticket-row .value{
+  font-family:var(--font-display);
+  font-weight:500;
+  text-align:right;
+  min-width:0;
+}
+.perforation{
+  position:relative;
+  height:0;
+  border-top:2px dashed var(--line);
+  margin:26px 2px;
+}
+.perforation::before,
+.perforation::after{
+  content:"";
+  position:absolute;
+  top:50%; transform:translateY(-50%);
+  width:22px; height:22px;
+  border-radius:50%;
+  background:var(--bg);
+  border:1px solid var(--line);
+}
+.perforation::before{ left:-31px; }
+.perforation::after{ right:-31px; }
+.section-title{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:1.02rem;
+  margin:0 0 14px;
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+.section-title .idx{
+  color:var(--gold);
+  font-size:0.85rem;
+  font-weight:700;
+}
+fieldset{ border:none; padding:0; margin:0 0 30px; }
+.field{ display:flex; flex-direction:column; gap:6px; margin-bottom:18px; }
+.field label{ font-size:0.85rem; color:var(--muted); }
+.field label .req{ color:var(--danger); margin-left:2px; }
+.field input[type="text"],
+.field input[type="tel"],
+.field input[type="password"],
+.field select,
+.field textarea{
+  appearance:none;
+  background:transparent;
+  border:none;
+  border-bottom:1px solid var(--line);
+  padding:8px 2px;
+  font:inherit;
+  font-size:1rem;
+  color:var(--fg);
+  width:100%;
+}
+.field select{ padding-right:20px; }
+.field textarea{
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:10px;
+  min-height:72px;
+  resize:vertical;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus{ outline:none; border-color:var(--accent); }
+.field .error{ font-size:0.78rem; color:var(--danger); min-height:1em; }
+.row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.rrn-row{
+  display:grid;
+  grid-template-columns:1fr auto 1fr auto;
+  align-items:center;
+  gap:8px;
+}
+.rrn-row span{ color:var(--muted); }
+.rrn-row input{ min-width:0; }
+.eye-btn{
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--muted);
+  border-radius:8px;
+  font-size:0.78rem;
+  padding:7px 9px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.eye-btn:hover{ border-color:var(--accent); color:var(--accent); }
+.notice{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:3px solid var(--gold);
+  border-radius:8px;
+  padding:12px 14px;
+  font-size:0.84rem;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+.check-row{ display:flex; align-items:flex-start; gap:10px; margin-bottom:18px; }
+.check-row input[type="checkbox"]{
+  margin-top:3px; width:18px; height:18px;
+  accent-color:var(--accent); flex-shrink:0;
+}
+.check-row label{ font-size:0.9rem; }
+.submit-btn{
+  display:block;
+  width:100%;
+  background:var(--accent);
+  color:var(--accent-ink);
+  border:none;
+  border-radius:10px;
+  padding:14px;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:1rem;
+  cursor:pointer;
+  letter-spacing:0.02em;
+  text-align:center;
+  text-decoration:none;
+}
+.submit-btn:hover{ filter:brightness(1.05); }
+.submit-btn:active{ filter:brightness(0.95); }
+.submit-btn:disabled{ opacity:0.6; cursor:default; }
+.form-note{ text-align:center; font-size:0.78rem; color:var(--muted); margin-top:12px; }
+#done{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:28px 22px;
+  text-align:center;
+}
+#done .mark{
+  width:56px; height:56px;
+  border-radius:50%;
+  border:2px solid var(--gold);
+  color:var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 14px;
+  font-size:1.5rem;
+}
+#done h2{
+  font-family:var(--font-display);
+  font-size:1.15rem;
+  margin:0 0 8px;
+}
+#done p{ color:var(--muted); font-size:0.9rem; margin:0; }
+[hidden]{ display:none !important; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <div class="seal">은이<br>성지</div>
+    <h1>2026 가을 성지순례</h1>
+    <p class="subtitle">서하남성당 주일학교 신청서</p>
+  </header>
+
+  <section class="ticket" aria-label="행사 안내">
+    <div class="ticket-row"><span class="label">일시</span><span class="value">오전 10:00 ~ 오후 4:00</span></div>
+    <div class="ticket-row"><span class="label">장소</span><span class="value">은이성지<br>경기 용인시 처인구 양지읍</span></div>
+    <div class="ticket-row"><span class="label">참가비</span><span class="value">10,000원</span></div>
+    <div class="ticket-row"><span class="label">입금계좌</span><span class="value">카카오뱅크 7942-27-80637<br>예금주 이병국</span></div>
+    <div class="ticket-row"><span class="label">신청마감</span><span class="value">2026. 10. 5.(월) 오후 9:00</span></div>
+  </section>
+
+  <div class="perforation"></div>
+
+  <form id="app-form" novalidate>
+
+    <fieldset>
+      <p class="section-title"><span class="idx">1</span> 참가학생 정보</p>
+
+      <div class="field">
+        <label for="f-grade">학년<span class="req">*</span></label>
+        <select id="f-grade">
+          <option value="" selected disabled>선택</option>
+          <option>초등 3학년</option>
+          <option>초등 4학년</option>
+          <option>초등 5학년</option>
+          <option>초등 6학년</option>
+        </select>
+        <div class="error" id="e-grade"></div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="f-name">학생 이름<span class="req">*</span></label>
+          <input type="text" id="f-name" autocomplete="off">
+          <div class="error" id="e-name"></div>
+        </div>
+        <div class="field">
+          <label for="f-baptism">세례명</label>
+          <input type="text" id="f-baptism" autocomplete="off" placeholder="없으면 비워두세요">
+          <div class="error"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-stu-phone">학생 전화번호</label>
+        <input type="tel" id="f-stu-phone" autocomplete="off" placeholder="010-0000-0000 (있는 경우)">
+        <div class="error"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <p class="section-title"><span class="idx">2</span> 여행자보험 가입용 정보</p>
+      <div class="notice">
+        주민등록번호는 여행자보험 가입 목적으로만 사용됩니다. 제출된 정보는 서하남성당 주일학교에서 관리하는 구글 시트에 기록됩니다.
+      </div>
+      <div class="field">
+        <label for="f-rrn1">학생 주민등록번호<span class="req">*</span></label>
+        <div class="rrn-row">
+          <input type="text" id="f-rrn1" inputmode="numeric" maxlength="6" placeholder="앞 6자리" autocomplete="off">
+          <span>–</span>
+          <input type="password" id="f-rrn2" inputmode="numeric" maxlength="7" placeholder="뒤 7자리" autocomplete="off">
+          <button type="button" class="eye-btn" id="rrn-toggle">표시</button>
+        </div>
+        <div class="error" id="e-rrn"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <p class="section-title"><span class="idx">3</span> 보호자 연락처</p>
+      <div class="field">
+        <label for="f-guardian">보호자 이름<span class="req">*</span></label>
+        <input type="text" id="f-guardian" autocomplete="off">
+        <div class="error" id="e-guardian"></div>
+      </div>
+      <div class="field">
+        <label for="f-guardian-phone">보호자 전화번호<span class="req">*</span></label>
+        <input type="tel" id="f-guardian-phone" autocomplete="off" placeholder="010-0000-0000">
+        <div class="error" id="e-guardian-phone"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <p class="section-title"><span class="idx">4</span> 참가비 입금 확인</p>
+      <div class="field">
+        <label for="f-depositor">입금자명<span class="req">*</span></label>
+        <input type="text" id="f-depositor" autocomplete="off">
+        <div class="error" id="e-depositor"></div>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="f-deposit-done">
+        <label for="f-deposit-done">참가비 10,000원 입금을 완료했습니다.</label>
+      </div>
+      <div class="error" id="e-deposit"></div>
+    </fieldset>
+
+    <fieldset>
+      <p class="section-title"><span class="idx">5</span> 특이사항</p>
+      <div class="field">
+        <label for="f-notes">알레르기, 지병, 주의사항 등 (해당 시 작성)</label>
+        <textarea id="f-notes" placeholder="없으면 비워두세요"></textarea>
+      </div>
+    </fieldset>
+
+    <div class="check-row">
+      <input type="checkbox" id="f-agree">
+      <label for="f-agree">위 개인정보(주민등록번호 포함)를 여행자보험 가입 목적으로 수집·이용하는 것에 동의합니다.<span class="req">*</span></label>
+    </div>
+    <div class="error" id="e-agree"></div>
+
+    <button type="submit" class="submit-btn" id="submit-btn">신청하기</button>
+    <p class="form-note">제출 즉시 성당에서 관리하는 구글 시트에 기록됩니다.</p>
+  </form>
+
+  <section id="done" hidden>
+    <div class="mark">✓</div>
+    <h2>신청이 접수되었습니다</h2>
+    <p>작성해 주셔서 감사합니다. 문의 사항은 서하남성당 주일학교로 연락해 주세요.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFySqcjH1pafXI8caAPQu5VAudxlvXSyJ_4kCQY1skAuXOBX62JdQQ28kRf9TsS16rtw/exec";
+
+  var form = document.getElementById('app-form');
+  var done = document.getElementById('done');
+  var submitBtn = document.getElementById('submit-btn');
+
+  function val(id){ return document.getElementById(id).value.trim(); }
+  function setError(id, msg){ var el = document.getElementById(id); if(el) el.textContent = msg || ''; }
+  function digitsOnly(s){ return s.replace(/[^0-9]/g, ''); }
+
+  document.getElementById('rrn-toggle').addEventListener('click', function(){
+    var f = document.getElementById('f-rrn2');
+    var showing = f.type === 'text';
+    f.type = showing ? 'password' : 'text';
+    this.textContent = showing ? '표시' : '숨김';
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var ok = true;
+
+    var grade = val('f-grade');
+    setError('e-grade', grade ? '' : '학년을 선택해 주세요.');
+    if(!grade) ok = false;
+
+    var name = val('f-name');
+    setError('e-name', name ? '' : '학생 이름을 입력해 주세요.');
+    if(!name) ok = false;
+
+    var rrn1 = digitsOnly(val('f-rrn1'));
+    var rrn2 = digitsOnly(val('f-rrn2'));
+    var rrnOk = rrn1.length === 6 && rrn2.length === 7;
+    setError('e-rrn', rrnOk ? '' : '주민등록번호 13자리를 정확히 입력해 주세요.');
+    if(!rrnOk) ok = false;
+
+    var guardian = val('f-guardian');
+    setError('e-guardian', guardian ? '' : '보호자 이름을 입력해 주세요.');
+    if(!guardian) ok = false;
+
+    var guardianPhone = val('f-guardian-phone');
+    setError('e-guardian-phone', guardianPhone ? '' : '보호자 전화번호를 입력해 주세요.');
+    if(!guardianPhone) ok = false;
+
+    var depositor = val('f-depositor');
+    setError('e-depositor', depositor ? '' : '입금자명을 입력해 주세요.');
+    if(!depositor) ok = false;
+
+    var depositDone = document.getElementById('f-deposit-done').checked;
+    setError('e-deposit', depositDone ? '' : '입금 완료 여부를 확인해 주세요.');
+    if(!depositDone) ok = false;
+
+    var agree = document.getElementById('f-agree').checked;
+    setError('e-agree', agree ? '' : '개인정보 수집·이용에 동의해 주세요.');
+    if(!agree) ok = false;
+
+    if(!ok) return;
+
+    var baptism = val('f-baptism') || '없음';
+    var stuPhone = val('f-stu-phone') || '-';
+    var notes = val('f-notes') || '없음';
+
+    var payload = {
+      grade: grade,
+      name: name,
+      baptism: baptism,
+      rrn: rrn1 + '-' + rrn2,
+      stuPhone: stuPhone,
+      guardian: guardian,
+      guardianPhone: guardianPhone,
+      depositor: depositor,
+      depositDone: '입금완료',
+      notes: notes
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '제출 중…';
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    }).then(function(){
+      form.hidden = true;
+      done.hidden = false;
+      done.scrollIntoView({behavior:'smooth', block:'start'});
+    }).catch(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = '신청하기';
+      setError('e-agree', '전송 중 오류가 발생했어요. 인터넷 연결을 확인하고 다시 시도해 주세요.');
+    });
+  });
+})();
+</script>
+</body>
+</html>
