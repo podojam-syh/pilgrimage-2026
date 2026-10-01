@@ -598,7 +598,7 @@ fieldset{ border:none; padding:0; margin:0 0 30px; }
         for (var i = 0; i < students.length; i++) {
           await sendOne(students[i]);
         }
-        doneText.textContent = '학생 ' + students.length + '명의 신청이 접수되었습니다. 문의 사항은 서하남성당 주일학교로 연락해 주세요.';
+        doneText.textContent = '학생 ' + students.length + '명, 참가비 ' + depositLabelAmount + ' 입금 확인으로 신청이 접수되었습니다. 문의 사항은 서하남성당 주일학교로 연락해 주세요.';
         form.hidden = true;
         done.hidden = false;
         done.scrollIntoView({behavior:'smooth', block:'start'});
