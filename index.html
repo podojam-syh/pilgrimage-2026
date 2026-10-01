@@ -443,6 +443,20 @@ fieldset{ border:none; padding:0; margin:0 0 30px; }
   function val(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; }
   function setError(id, msg){ var el = document.getElementById(id); if(el) el.textContent = msg || ''; }
 
+  function formatPhone(s){
+    var d = digitsOnly(s).slice(0, 11);
+    if(d.length < 4) return d;
+    if(d.length < 7) return d.slice(0,3) + '-' + d.slice(3);
+    if(d.length < 11) return d.slice(0,3) + '-' + d.slice(3,6) + '-' + d.slice(6);
+    return d.slice(0,3) + '-' + d.slice(3,7) + '-' + d.slice(7,11);
+  }
+  function attachPhoneFormat(input){
+    if(!input) return;
+    input.addEventListener('input', function(){
+      this.value = formatPhone(this.value);
+    });
+  }
+
   function studentBlockHTML(n){
     return '' +
       '<div class="student-block" data-n="' + n + '">' +
@@ -523,8 +537,12 @@ fieldset{ border:none; padding:0; margin:0 0 30px; }
       updateTotals();
     });
 
+    attachPhoneFormat(document.getElementById('f-stu-phone-' + studentCount));
+
     updateTotals();
   }
+
+  attachPhoneFormat(document.getElementById('f-guardian-phone'));
 
   addBtn.addEventListener('click', addStudent);
   addStudent();
@@ -557,7 +575,7 @@ fieldset{ border:none; padding:0; margin:0 0 30px; }
         name: name,
         baptism: val('f-baptism-' + n) || '없음',
         rrn: rrn1 + '-' + rrn2,
-        stuPhone: val('f-stu-phone-' + n) || '-',
+        stuPhone: val('f-stu-phone-' + n) ? formatPhone(val('f-stu-phone-' + n)) : '-',
         notes: val('f-notes-' + n) || '없음'
       });
     });
@@ -566,7 +584,7 @@ fieldset{ border:none; padding:0; margin:0 0 30px; }
     setError('e-guardian', guardian ? '' : '보호자 이름을 입력해 주세요.');
     if(!guardian) ok = false;
 
-    var guardianPhone = val('f-guardian-phone');
+    var guardianPhone = formatPhone(val('f-guardian-phone'));
     setError('e-guardian-phone', guardianPhone ? '' : '보호자 전화번호를 입력해 주세요.');
     if(!guardianPhone) ok = false;
 
