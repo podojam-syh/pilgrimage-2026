@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>서하남성당 주일학교 교사 여행자보험 정보 입력</title>
+<meta property="og:title" content="서하남성당 주일학교 교사 여행자보험 정보 입력">
+<meta property="og:description" content="2026 가을 성지순례 여행자보험 가입을 위한 교사 성함·주민등록번호 입력 페이지입니다.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://podojam-syh.github.io/pilgrimage-2026/teacher.html">
+<style>
+:root{
+  --bg:#ECE3D0;
+  --surface:#FBF8F1;
+  --fg:#2A2420;
+  --muted:#776B5A;
+  --line:#D9CBAE;
+  --accent:#7B2E2E;
+  --accent-ink:#ffffff;
+  --gold:#9C7A32;
+  --danger:#A23B2E;
+  --font-display:"Noto Serif KR", "Nanum Myeongjo", serif;
+  --font-seal:"Song Myung", "Noto Serif KR", serif;
+  --font-body:"Noto Sans KR", "Malgun Gothic", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#191613; --surface:#231F1B; --fg:#EDE4D3; --muted:#AFA28A;
+    --line:#3B352B; --accent:#D98A79; --accent-ink:#241210; --gold:#D7B36A; --danger:#E08A79;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#191613; --surface:#231F1B; --fg:#EDE4D3; --muted:#AFA28A;
+  --line:#3B352B; --accent:#D98A79; --accent-ink:#241210; --gold:#D7B36A; --danger:#E08A79;
+  color-scheme: dark;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{ background:var(--bg); color:var(--fg); font-family:var(--font-body); line-height:1.6; }
+.page{ max-width:480px; margin:0 auto; padding-inline:20px; padding-block:28px 48px; }
+.hero{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; margin-bottom:28px; }
+.seal{
+  width:88px; height:88px; border-radius:50%; border:2px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-seal); font-size:1.15rem; letter-spacing:0.04em; color:var(--gold);
+  position:relative;
+}
+.seal::before{ content:""; position:absolute; inset:6px; border:1px solid var(--gold); border-radius:50%; opacity:0.55; }
+.hero h1{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.3rem, 1.05rem + 1.2vw, 1.7rem); margin:4px 0 0; text-wrap:balance; }
+.hero .subtitle{ margin:0; color:var(--muted); font-size:0.92rem; }
+.notice{
+  background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--gold);
+  border-radius:8px; padding:14px 16px; font-size:0.86rem; color:var(--muted); margin-bottom:26px;
+}
+fieldset{ border:none; padding:0; margin:0 0 20px; }
+.field{ display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+.field label{ font-size:0.85rem; color:var(--muted); }
+.field label .req{ color:var(--danger); margin-left:2px; }
+.field input[type="text"],
+.field input[type="password"]{
+  appearance:none; background:transparent; border:none; border-bottom:1px solid var(--line);
+  padding:9px 2px; font:inherit; font-size:1.05rem; color:var(--fg); width:100%;
+}
+.field input:focus{ outline:none; border-color:var(--accent); }
+.field .error{ font-size:0.78rem; color:var(--danger); min-height:1em; }
+.rrn-row{ display:grid; grid-template-columns:1fr auto 1fr auto; align-items:center; gap:8px; }
+.rrn-row span{ color:var(--muted); }
+.rrn-row input{ min-width:0; }
+.eye-btn{
+  border:1px solid var(--line); background:var(--surface); color:var(--muted);
+  border-radius:8px; font-size:0.78rem; padding:7px 9px; cursor:pointer; white-space:nowrap;
+}
+.eye-btn:hover{ border-color:var(--accent); color:var(--accent); }
+.check-row{ display:flex; align-items:flex-start; gap:10px; margin-bottom:22px; }
+.check-row input[type="checkbox"]{ margin-top:3px; width:18px; height:18px; accent-color:var(--accent); flex-shrink:0; }
+.check-row label{ font-size:0.9rem; }
+.submit-btn{
+  display:block; width:100%; background:var(--accent); color:var(--accent-ink); border:none;
+  border-radius:10px; padding:14px; font-family:var(--font-display); font-weight:700; font-size:1rem;
+  cursor:pointer; letter-spacing:0.02em; text-align:center;
+}
+.submit-btn:hover{ filter:brightness(1.05); }
+.submit-btn:active{ filter:brightness(0.95); }
+.submit-btn:disabled{ opacity:0.6; cursor:default; }
+#done{ text-align:center; padding-top:40px; }
+#done .mark{ font-size:2.4rem; color:var(--accent); margin-bottom:10px; }
+#done h2{ font-family:var(--font-display); margin:0 0 8px; }
+#done p{ color:var(--muted); font-size:0.92rem; }
+[hidden]{ display:none !important; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Noto+Sans+KR:wght@400;500;700&family=Song+Myung&display=swap">
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <div class="seal">보험<br>가입</div>
+    <h1>교사 여행자보험 정보 입력</h1>
+    <p class="subtitle">서하남성당 주일학교 · 2026 가을 성지순례</p>
+  </header>
+
+  <div class="notice">
+    2026 가을 성지순례(은이성지) 참가 교사의 여행자보험 가입을 위해 성함과 주민등록번호를 수집합니다. 수집된 정보는 보험 가입 목적으로만 사용되며, 그 외 용도로는 사용되지 않습니다.
+  </div>
+
+  <form id="teacher-form" novalidate>
+    <fieldset>
+      <div class="field">
+        <label for="f-name">성함<span class="req">*</span></label>
+        <input type="text" id="f-name" autocomplete="off">
+        <div class="error" id="e-name"></div>
+      </div>
+
+      <div class="field">
+        <label for="f-rrn1">주민등록번호<span class="req">*</span></label>
+        <div class="rrn-row">
+          <input type="text" id="f-rrn1" inputmode="numeric" maxlength="6" placeholder="앞 6자리" autocomplete="off">
+          <span>–</span>
+          <input type="password" id="f-rrn2" inputmode="numeric" maxlength="7" placeholder="뒤 7자리" autocomplete="off">
+          <button type="button" class="eye-btn" id="toggle-rrn">표시</button>
+        </div>
+        <div class="error" id="e-rrn"></div>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" id="f-agree">
+        <label for="f-agree">위 개인정보(주민등록번호 포함)를 여행자보험 가입 목적으로 수집·이용하는 것에 동의합니다.<span class="req">*</span></label>
+      </div>
+      <div class="error" id="e-agree"></div>
+    </fieldset>
+
+    <button type="submit" class="submit-btn" id="submit-btn">제출하기</button>
+  </form>
+
+  <section id="done" hidden>
+    <div class="mark">✓</div>
+    <h2>제출이 완료되었습니다</h2>
+    <p>보험 가입 처리를 위해 정보가 전달되었습니다. 감사합니다.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFySqcjH1pafXI8caAPQu5VAudxlvXSyJ_4kCQY1skAuXOBX62JdQQ28kRf9TsS16rtw/exec";
+
+  var form = document.getElementById('teacher-form');
+  var done = document.getElementById('done');
+  var submitBtn = document.getElementById('submit-btn');
+
+  function digitsOnly(s){ return s.replace(/[^0-9]/g, ''); }
+  function val(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+  function setError(id, msg){ var el = document.getElementById(id); if(el) el.textContent = msg || ''; }
+
+  document.getElementById('toggle-rrn').addEventListener('click', function(){
+    var f = document.getElementById('f-rrn2');
+    var showing = f.type === 'text';
+    f.type = showing ? 'password' : 'text';
+    this.textContent = showing ? '표시' : '숨김';
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var ok = true;
+
+    var name = val('f-name');
+    setError('e-name', name ? '' : '성함을 입력해 주세요.');
+    if(!name) ok = false;
+
+    var rrn1 = digitsOnly(val('f-rrn1'));
+    var rrn2 = digitsOnly(val('f-rrn2'));
+    var rrnOk = rrn1.length === 6 && rrn2.length === 7;
+    setError('e-rrn', rrnOk ? '' : '주민등록번호 13자리를 정확히 입력해 주세요.');
+    if(!rrnOk) ok = false;
+
+    var agree = document.getElementById('f-agree').checked;
+    setError('e-agree', agree ? '' : '개인정보 수집·이용에 동의해 주세요.');
+    if(!agree) ok = false;
+
+    if(!ok) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '제출 중…';
+
+    var payload = {
+      type: 'teacher',
+      name: name,
+      rrn: rrn1 + '-' + rrn2
+    };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    }).then(function(){
+      form.hidden = true;
+      done.hidden = false;
+      done.scrollIntoView({behavior:'smooth', block:'start'});
+    }).catch(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = '제출하기';
+      setError('e-agree', '전송 중 오류가 발생했어요. 인터넷 연결을 확인하고 다시 시도해 주세요.');
+    });
+  });
+})();
+</script>
+</body>
+</html>
